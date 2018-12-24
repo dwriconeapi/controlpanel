@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/default">
+<body>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title float-left">Schools</h4>
+                    <a th:href="@{/schools/create}">
+                        <button type="button" class="btn btn-success btn-fw float-right">Create <i class="mdi mdi-plus"></i></button>
+                    </a>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>District</th>
+                                <th>Enabled</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><a th:href="@{/schools/school1}">School 1</a></td>
+                                <td><a th:href="@{/districts/district1}">District 1</a></td>
+                                <td>true</td>
+                            </tr>
+                            <tr>
+                                <td><a th:href="@{/schools/school1}">School 2</a></td>
+                                <td><a th:href="@{/districts/district1}">District 2</a></td>
+                                <td>true</td>
+                            </tr>
+                            <tr>
+                                <td><a th:href="@{/schools/school1}">School 3</a></td>
+                                <td><a th:href="@{/districts/district1}">District 1</a></td>
+                                <td>true</td>
+                            </tr>
+                            <tr>
+                                <td><a th:href="@{/schools/school1}">School 4</a></td>
+                                <td><a th:href="@{/districts/district1}">District 2</a></td>
+                                <td>true</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

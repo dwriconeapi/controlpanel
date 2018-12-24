@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/default">
+    <body>
+        <div layout:fragment="content">
+            <!-- Breadcrumbs -->
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-white">
+                    <li class="breadcrumb-item">
+                        <a href="/apps">Apps</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page" th:text="${app.name}">Data</li>
+                </ol>
+            </nav>
+            <!-- Content: Row 1 -->
+            <div class="row">
+                <!-- Box 1: App Logo -->
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <img class="card-img align-middle" th:src="@{${app.iconUrl}}" alt="Logo" />
+                        </div>
+                    </div>
+                </div>
+                <!-- Box 2: App Details -->
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1 class="card-title">App</h1>
+                            <div class="shedule-list d-flex align-items-center justify-content-between mb-3">
+                                <h3 th:text="${app.name}"></h3>
+                                <small th:text="${app.status}" th:classappend="${app.status == 'Active' ? 'text-success' : 'danger'}"></small>
+                            </div>
+                            <div class="event border-bottom py-3">
+                                <p class="mb-2 font-weight-medium">Vendor</p>
+                                <div class="d-flex align-items-center">
+                                    <p th:text="${vendor.name}"></p>
+                                </div>
+                            </div>
+                            <div class="event border-bottom py-3">
+                                <p class="mb-2 font-weight-medium">Website</p>
+                                <div class="d-flex align-items-center">
+                                    <p th:text="${app.siteUrl != null} ? ${app.siteUrl} : 'None'"></p>
+                                </div>
+                            </div>
+                            <div class="event border-bottom py-3">
+                                <p class="mb-2 font-weight-medium">Description</p>
+                                <div class="d-flex align-items-center">
+                                    <p th:text="${app.longDescription}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 grid-margin">
+                    <!-- Box 3: Contacts -->
+                    <div class="row flex-grow">
+                        <div class="col-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Contacts</h4>
+                                    <div th:each="contact : ${contacts}" class="wrapper d-flex align-items-center py-2 border-bottom" >
+                                        <button type="button" class="btn btn-icons btn-rounded btn-info"><i class="mdi mdi-code-braces"></i></button>
+                                        <div class="wrapper ml-3">
+                                            <h6 th:text="${contact.name}" class="ml-1 mb-1"></h6>
+                                            <small class="text-muted mb-0"><i class="mdi mdi-format-title"></i><span th:text="${contact.email}"></span></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Box 4 -->
+                        <!--<div class="col-12 stretch-card">
+                            <div class="card card-revenue-table">
+                                <div class="card-body">
+                                    <h4 class="card-title">Tags</h4>
+                                    <div th:each="contact : ${contacts}" class="wrapper d-flex align-items-center py-2 border-bottom" >
+                                        <button type="button" class="btn btn-icons btn-rounded btn-info"><i class="mdi mdi-code-braces"></i></button>
+                                        <div class="wrapper ml-3">
+                                            <h6 th:text="${contact.name}" class="ml-1 mb-1"></h6>
+                                            <small class="text-muted mb-0"><i class="mdi mdi-format-title"></i><span th:text="${contact.email}"></span></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+            <!-- Content: Row 2 -->
+            <div class="row">
+                <!-- Box 1: Districts -->
+                <div class="col-sm-6 col-md-6 col-lg-6 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title float-left">Districts</h4>
+                            <!--<a th:href="@{/districts/create}">
+                                <button type="button" class="btn btn-success btn-fw float-right">Create <i class="mdi mdi-plus"></i></button>
+                            </a>-->
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Schools</th>
+                                        <th>Provider</th>
+                                        <th>Status</th>
+                                        <th>Enabled</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="district : ${districts}">
+                                        <td><a th:href="@{'/apps/' + ${app.id} + '/district/' + ${district.id}}" th:text="${district.name}"></a></td>
+                                        <td>7</td>
+                                        <td>http://neric.ricone.org</td>
+                                        <td th:text="${district.status}"></td>
+                                        <td th:text="${district.enabled}" th:classappend="${district.enabled == true ? 'text-success' : 'text-danger'}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Box 2: Configurables -->
+                <div class="col-sm-6 col-md-6 col-lg-6 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Configurables</h4>
+                            <div class="row ml-md-0 mr-md-0 vertical-tab tab-minimal">
+                                <ul class="nav nav-tabs col-md-2 justify-content-between" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active show" id="tab-2-1" data-toggle="tab" href="#dashboard-2-1" role="tab" aria-controls="dashboard-2-1" aria-selected="true">
+                                            <i class="mdi mdi-textbox-password"></i>District AUPP</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-2-2" data-toggle="tab" href="#message-2-2" role="tab" aria-controls="message-2-2" aria-selected="false">
+                                            <i class="mdi mdi-message-outline"></i>Messages</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-2-3" data-toggle="tab" href="#campaigns-2-3" role="tab" aria-controls="campaigns-2-3" aria-selected="false">
+                                            <i class="mdi mdi-bell-outline"></i>Campaigns</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-2-4" data-toggle="tab" href="#influencers-2-4" role="tab" aria-controls="influencers-2-4" aria-selected="false">
+                                            <i class="mdi mdi-account-outline"></i>Influencers</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-2-5" data-toggle="tab" href="#payments-2-5" role="tab" aria-controls="payments-2-5" aria-selected="false">
+                                            <i class="mdi mdi-lightbulb-outline"></i>Payments</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="tab-2-6" data-toggle="tab" href="#analytics-2-6" role="tab" aria-controls="analytics-2-6" aria-selected="false">
+                                            <i class="mdi mdi-airplay"></i>Analytics</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content col-md-10">
+                                    <div class="tab-pane fade active show" id="dashboard-2-1" role="tabpanel" aria-labelledby="tab-2-1">
+                                        <div class="row">
+                                            <div class="col-md-7 pl-md-5">
+                                                <div class="wrapper mb-4">
+                                                    <h4 class="mb-3">
+                                                        <i class="mdi mdi-speedometer mr-3"></i>Anonymous Proxy
+                                                    </h4>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                                                </div>
+                                                <div class="wrapper mt-4 pt-4">
+                                                    <h4 class="mb-3">
+                                                        <i class="mdi mdi-speedometer mr-3"></i>Addiction When Gambling
+                                                    </h4>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="message-2-2" role="tabpanel" aria-labelledby="tab-2-2">
+                                        <div class="row">
+                                            <div class="col-md-7 pl-md-5">
+                                                <div class="wrapper mb-4">
+                                                    <h4 class="mb-3">
+                                                        <i class="mdi mdi-speedometer mr-3"></i>Anonymous Proxy
+                                                    </h4>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                                                </div>
+                                                <div class="wrapper mt-4 pt-4">
+                                                    <h4 class="mb-3">
+                                                        <i class="mdi mdi-speedometer mr-3"></i>Addiction When Gambling
+                                                    </h4>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="campaigns-2-3" role="tabpanel" aria-labelledby="tab-2-3">
+                                        <div class="row">
+                                            <div class="col-md-7 pl-md-5">
+                                                <div class="wrapper mb-4">
+                                                    <h4 class="mb-3">
+                                                        <i class="mdi mdi-speedometer mr-3"></i>Anonymous Proxy
+                                                    </h4>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                                                </div>
+                                                <div class="wrapper mt-4 pt-4">
+                                                    <h4 class="mb-3">
+                                                        <i class="mdi mdi-speedometer mr-3"></i>Addiction When Gambling
+                                                    </h4>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="influencers-2-4" role="tabpanel" aria-labelledby="tab-2-4">
+                                        <div class="row">
+                                            <div class="col-md-7 pl-md-5">
+                                                <div class="wrapper mb-4">
+                                                    <h4 class="mb-3">
+                                                        <i class="mdi mdi-speedometer mr-3"></i>Anonymous Proxy
+                                                    </h4>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                                                </div>
+                                                <div class="wrapper mt-4 pt-4">
+                                                    <h4 class="mb-3">
+                                                        <i class="mdi mdi-speedometer mr-3"></i>Addiction When Gambling
+                                                    </h4>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="payments-2-5" role="tabpanel" aria-labelledby="tab-2-5">
+                                        <div class="row">
+                                            <div class="col-md-7 pl-md-5">
+                                                <div class="wrapper mb-4">
+                                                    <h4 class="mb-3">
+                                                        <i class="mdi mdi-speedometer mr-3"></i>Anonymous Proxy
+                                                    </h4>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                                                </div>
+                                                <div class="wrapper mt-4 pt-4">
+                                                    <h4 class="mb-3">
+                                                        <i class="mdi mdi-speedometer mr-3"></i>Addiction When Gambling
+                                                    </h4>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="analytics-2-6" role="tabpanel" aria-labelledby="tab-2-6">
+                                        <div class="row">
+                                            <div class="col-md-7 pl-md-5">
+                                                <div class="wrapper mb-4">
+                                                    <h4 class="mb-3">
+                                                        <i class="mdi mdi-speedometer mr-3"></i>Anonymous Proxy
+                                                    </h4>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                                                </div>
+                                                <div class="wrapper mt-4 pt-4">
+                                                    <h4 class="mb-3">
+                                                        <i class="mdi mdi-speedometer mr-3"></i>Addiction When Gambling
+                                                    </h4>
+                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

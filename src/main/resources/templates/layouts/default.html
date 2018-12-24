@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head th:replace="fragments/header :: head"></head>
+    <body>
+        <div class="container-scroller">
+            <nav th:replace="fragments/navbar :: navbar"></nav>
+            <div class="container-fluid page-body-wrapper">
+                <nav th:replace="fragments/sidebar :: sidebar"></nav>
+                <div class="main-panel">
+                    <div layout:fragment="content" class="content-wrapper">
+                        <!--Content Goes Here-->
+                    </div>
+                    <footer th:replace="fragments/footer :: footer"></footer>
+                </div>
+            </div>
+        </div>
+        <script src="../../vendors/js/vendor.bundle.base.js"></script>
+        <script src="../../vendors/js/vendor.bundle.addons.js"></script>
+        <script src="../../js/off-canvas.js"></script>
+        <script src="../../js/misc.js"></script>
+    </body>
+</html>

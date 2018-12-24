@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/default">
+<body>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title float-left">Apps</h4>
+                    <a th:href="@{/apps/create}">
+                        <button type="button" class="btn btn-success btn-fw float-right">Create <i class="mdi mdi-plus"></i></button>
+                    </a>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Name</th>
+                                <th>Vendor</th>
+                                <th>Districts</th>
+                                <th>Enabled</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="app : ${apps}">
+                                <td class="py-1"><img src="/images/faces-clipart/pic-1.png" alt="image"></td>
+                                <td><a th:href="@{'/apps/' + ${app.id}}" th:text="${app.id}"></a></td>
+                                <td><a th:href="@{'/vendors/' + ${app.vendorId}}" th:text="${app.vendorId}"></a></td>
+                                <td>8</td>
+                                <td th:text="${app.status}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
