@@ -139,6 +139,13 @@ public class AppController {
 		district.setId("district"+ 1);
 		district.setName("District " + 1);
 		district.setStatus("Testing");
+
+		district.setStreet("17 Harvard Street");
+		district.setCity("Schenectady");
+		district.setProvince("New York");
+		district.setCounty("Schenectady");
+		district.setPostcode("12304");
+		district.setOfficePhone("(518) 810-3880");
 		if(getRandomNumberInRange(0,1) == 0) {
 			district.setEnabled(false);
 		}
@@ -171,12 +178,22 @@ public class AppController {
 			schoolList.add(school);
 		}
 
+		List<DistrictKV> auppKVList = new ArrayList<>();
+		for(int i = 1; i < 5; i++) {
+			DistrictKV districtKV = new DistrictKV();
+			districtKV.setField("aupp.username.field.thing." + i);
+			districtKV.setValue("a value goes here");
+			auppKVList.add(districtKV);
+		}
+
+
 
 		model.addAttribute("app", app);
 		model.addAttribute("vendor", vendor);
 		model.addAttribute("district", district);
 		model.addAttribute("contacts", contactList);
 		model.addAttribute("schools", schoolList);
+		model.addAttribute("auppKVs", auppKVList);
 		return "districtByApp";
 	}
 

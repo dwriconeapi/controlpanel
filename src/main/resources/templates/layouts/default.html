@@ -14,9 +14,18 @@
                 </div>
             </div>
         </div>
-        <script src="../../vendors/js/vendor.bundle.base.js"></script>
-        <script src="../../vendors/js/vendor.bundle.addons.js"></script>
-        <script src="../../js/off-canvas.js"></script>
-        <script src="../../js/misc.js"></script>
+        <!-- container-scroller -->
+        <!-- plugins:js -->
+        <script th:src="@{/js/vendor.bundle.base.js}"></script>
+        <script th:src="@{/js/vendor.bundle.addons.js}"></script>
+        <!-- endinject -->
+        <!-- Plugin js for this page-->
+        <!-- End plugin js for this page-->
+        <!-- inject:js -->
+        <script th:src="@{/js/shared/off-canvas.js}"></script>
+        <script th:src="@{/js/shared/hoverable-collapse.js}"></script>
+        <script th:src="@{/js/shared/misc.js}"></script>
+        <script th:src="@{/js/shared/settings.js}"></script>
+        <script th:src="@{/js/shared/todolist.js}"></script>
     </body>
 </html>
