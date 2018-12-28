@@ -105,19 +105,6 @@ public class AppController {
 		return "app";
 	}
 
-
-	private static int getRandomNumberInRange(int min, int max) {
-		if (min >= max) {
-			throw new IllegalArgumentException("max must be greater than min");
-		}
-
-		Random r = new Random();
-		return r.nextInt((max - min) + 1) + min;
-	}
-
-
-
-
 	@GetMapping("/apps/{appId}/district/{districtId}")
 	private String districtByApp(ModelMap model, @PathVariable String appId, @PathVariable String districtId) {
 		App app = new App();
@@ -197,9 +184,72 @@ public class AppController {
 		return "districtByApp";
 	}
 
+	@GetMapping("/apps/{appId}/district/{districtId}/school/{schoolId}")
+	private String schoolByDistrictByApp(ModelMap model, @PathVariable String appId, @PathVariable String districtId, @PathVariable String schoolId) {
+		App app = new App();
+		app.setId("castleLearning1");
+		app.setName("Castle Learning Online");
+		app.setVendorId("castleSoftware");
+		app.setStatus("Active");
+		app.setLongDescription("A lot of words go here. I mean a lot... like hundreds.");
+		app.setIconUrl("http://www.ricone.org/wp-content/uploads/2016/01/castle_big.jpg");
+		app.setPublic(true);
+
+		District district = new District();
+		district.setId("district"+ 1);
+		district.setName("District " + 1);
+		district.setStatus("Testing");
+
+		district.setStreet("17 Harvard Street");
+		district.setCity("Schenectady");
+		district.setProvince("New York");
+		district.setCounty("Schenectady");
+		district.setPostcode("12304");
+		district.setOfficePhone("(518) 810-3880");
+		if(getRandomNumberInRange(0,1) == 0) {
+			district.setEnabled(false);
+		}
+		else {
+			district.setEnabled(true);
+		}
+
+		School school = new School();
+		school.setId("school");
+		school.setLocName("School ");
+		school.setStateLocId(StringUtils.randomAlphanumeric(5));
+		if(getRandomNumberInRange(0,1) == 0) {
+			school.setEnabled(false);
+		}
+		else {
+			school.setEnabled(true);
+		}
+
+		List<SchoolKV> auppKVList = new ArrayList<>();
+		for(int i = 1; i < 15; i++) {
+			SchoolKV schoolKV = new SchoolKV();
+			schoolKV.setField("aupp.username.field.thing." + i);
+			schoolKV.setValue("a value goes here");
+			auppKVList.add(schoolKV);
+		}
+
+		model.addAttribute("app", app);
+		model.addAttribute("district", district);
+		model.addAttribute("school", school);
+		model.addAttribute("auppKVs", auppKVList);
+		return "schoolByDistrictByApp";
+	}
 
 	@GetMapping("/apps/create")
 	private String create() {
 		return "appCreate";
+	}
+
+	private static int getRandomNumberInRange(int min, int max) {
+		if (min >= max) {
+			throw new IllegalArgumentException("max must be greater than min");
+		}
+
+		Random r = new Random();
+		return r.nextInt((max - min) + 1) + min;
 	}
 }

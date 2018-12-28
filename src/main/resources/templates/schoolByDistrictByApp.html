@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layouts/default">
+    <body>
+        <div layout:fragment="content">
+            <!-- Breadcrumbs -->
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-white">
+                    <li class="breadcrumb-item">
+                        <a href="/apps">Apps</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a th:href="@{'/apps/' + ${app.id}}" th:text="${app.name}"></a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a th:href="@{'/apps/' + ${app.id} + '/district/' + ${district.id}}" th:text="${district.name}"></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page" th:text="${school.locName}"></li>
+                </ol>
+            </nav>
+            <!-- Content: Row 1 -->
+            <div class="row">
+                <!-- Box 1: App Details -->
+                <div class="col-md-4 grid-margin">
+                    <div class="card">
+                        <div class="card-body">
+                            <h1 class="card-title">School</h1>
+                            <div class="shedule-list d-flex align-items-center justify-content-between mb-3">
+                                <h3 th:text="${school.locName}"></h3>
+                                <small th:text="${school.enabled == true ? 'Enabled' : 'Disabled'}" th:classappend="${school.enabled == true ? 'text-success' : 'text-danger'}"></small>
+                            </div>
+                            <div class="event border-bottom pt-2">
+                                <p class="mb-1 font-weight-medium">District</p>
+                                <div class="d-flex align-items-center">
+                                    <p th:text="${district.name}"></p>
+                                </div>
+                            </div>
+                            <div class="event border-bottom pt-2">
+                                <p class="mb-1 font-weight-medium">Website</p>
+                                <div class="d-flex align-items-center">
+                                    <p th:text="${app.siteUrl != null} ? ${app.siteUrl} : 'None'"></p>
+                                </div>
+                            </div>
+                            <div class="event border-bottom pt-2">
+                                <p class="mb-1 font-weight-medium">Description</p>
+                                <div class="d-flex align-items-center">
+                                    <p th:text="${app.longDescription}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 grid-margin">
+                    <!-- Box 2: Contacts -->
+                    <div class="row flex-grow">
+                        <div class="col-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">AUPP Settings</h4>
+                                    <!--<div th:each="contact : ${contacts}" class="wrapper d-flex align-items-center py-2 border-bottom" >
+                                        <button type="button" class="btn btn-icons btn-rounded btn-info"><i class="mdi mdi-code-braces"></i></button>
+                                        <div class="wrapper ml-3">
+                                            <h6 th:text="${contact.name}" class="ml-1 mb-1"></h6>
+                                            <small class="text-muted mb-0"><i class="mdi mdi-format-title"></i><span th:text="${contact.email}"></span></small>
+                                        </div>
+                                    </div>-->
+                                    <div class="data-list wrapper d-flex align-items-center py-2 border-bottom" th:each="kv : ${auppKVs}">
+                                        <div class="list-item row pt-0">
+                                            <div th:text="${kv.field}" class="browser col"></div>
+                                            <div th:text="${kv.value}" class="visits col"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Box 4 -->
+                        <!--<div class="col-12 stretch-card">
+                            <div class="card card-revenue-table">
+                                <div class="card-body">
+                                    <h4 class="card-title">Tags</h4>
+                                    <div th:each="contact : ${contacts}" class="wrapper d-flex align-items-center py-2 border-bottom" >
+                                        <button type="button" class="btn btn-icons btn-rounded btn-info"><i class="mdi mdi-code-braces"></i></button>
+                                        <div class="wrapper ml-3">
+                                            <h6 th:text="${contact.name}" class="ml-1 mb-1"></h6>
+                                            <small class="text-muted mb-0"><i class="mdi mdi-format-title"></i><span th:text="${contact.email}"></span></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </body>
+</html>
