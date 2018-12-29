@@ -28,7 +28,7 @@
                             <h1 class="card-title">App</h1>
                             <div class="shedule-list d-flex align-items-center justify-content-between mb-3">
                                 <h3 th:text="${app.name}"></h3>
-                                <small th:text="${app.status}" th:classappend="${app.status == 'Active' ? 'text-success' : 'text-danger'}"></small>
+                                <div th:text="${app.status}" class="badge badge-pill" th:classappend="${app.status == 'Active' ? 'badge-success' : 'badge-danger'}">Success</div>
                             </div>
                             <div class="event border-bottom pt-2">
                                 <p class="mb-1 font-weight-medium">Vendor</p>
